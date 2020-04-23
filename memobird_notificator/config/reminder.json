@@ -1,0 +1,60 @@
+{
+    "notifications" : [
+        {
+            "name" : "大头菜价格更新",
+            "start_date" : "",
+            "end_date" : "",
+            "timezone" : "CDT",
+            "cron_time" : "0 8,12 * * *",
+            "additional_time" : [
+                "yyyymmddhhmm"
+            ],
+            "notification" : {
+                "before" : "yyyymmddhhmm",
+                "at" : true,
+                "after" : "yyyymmddhhmm"
+            },
+            "ended" : false
+        },
+        {
+            "name" : "开卖大头菜",
+            "start_date" : "",
+            "end_date" : "",
+            "timezone" : "CDT",
+            "cron_time" : "0 6 * * 0",
+            "additional_time" : [
+            ],
+            "ended" : false
+        },
+        {
+            "name" : "公主连结道具卡池更新",
+            "start_date" : "20200417",
+            "end_date" : "",
+            "timezone" : "CST",
+            "cron_time" : "0 5,12 * * *",
+            "additional_time" : [
+            ],
+            "ended" : false
+        },
+        {
+            "name" : "公主连结普通商店更新",
+            "start_date" : "20200417",
+            "end_date" : "",
+            "timezone" : "CST",
+            "cron_time" : "0 6 * * 7",
+            "additional_time" : [
+            ],
+            "ended" : false
+        },
+        {
+            "name" : "公主连结发体力",
+            "start_date" : "20200417",
+            "end_date" : "",
+            "timezone" : "CST",
+            "cron_time" : "0 6 * * 7",
+            "additional_time" : [
+            ],
+            "ended" : false
+        }
+    ]
+}

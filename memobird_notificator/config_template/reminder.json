@@ -1,0 +1,23 @@
+
+{
+    "name" : "name",
+    "start_date" : "yyyymmddhhmm",
+    "end_date" : "yyyymmddhhmm",
+    "timezone" : "CDT",
+    "cron_time" : "* * * * *",
+    "additional_time" : [
+        "yyyymmddhhmm"
+    ],
+    "notifications" : {
+        "before" : "yyyymmddhhmm",
+        "at" : true,
+        "after" : "yyyymmddhhmm"
+    },
+    "notes" : {
+        "before" : "还有一个小时",
+        "at" : "现在",
+        "after" : "已经一个小时了"
+    },
+    "ended" : false,
+    "enable": true
+}

@@ -1,0 +1,15 @@
+{
+    "hostname": "localhost",
+    "log_file_path": "./logfile.log",
+    "modules" :[
+        "Email",
+        "Reminder"
+    ],
+    "memobird_list": [
+        {
+            "name": "Memobird 1",
+            "smart_guid": "",
+            "user_id": ""
+        }
+    ]
+}

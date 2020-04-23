@@ -1,0 +1,16 @@
+{
+    "account" : [
+        {
+            "email" : "",
+            "password": "",
+            "folders" : [
+                [
+                    "Top of Information Store",
+                    "Memobird-US"
+                ]
+                
+                
+            ]
+        }
+    ]
+}
