@@ -1,14 +1,8 @@
 {
-    "accounts": [
-        {
-            "email": "",
-            "password": "",
-            "folders": [
-                [
-                    "Top of Information Store",
-                    "Memobird-US"
-                ]
-            ]
-        }
+    "email": "@outlook.com",
+    "password": "",
+    "folders": [
+        "Top of Information Store",
+        ""
     ]
 }
