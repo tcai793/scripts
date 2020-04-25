@@ -1,23 +1,53 @@
-
 {
-    "name" : "name",
-    "start_date" : "yyyymmddhhmm",
-    "end_date" : "yyyymmddhhmm",
-    "timezone" : "CDT",
-    "cron_time" : "* * * * *",
-    "additional_time" : [
-        "yyyymmddhhmm"
-    ],
-    "notifications" : {
-        "before" : "yyyymmddhhmm",
-        "at" : true,
-        "after" : "yyyymmddhhmm"
+    "name": "name",
+    "enable": true,
+    "ended": false,
+    "timezone": "CDT",
+    "start_date": "yyyymmddhhmm",
+    "end_date": "yyyymmddhhmm",
+    "event_date": {
+        "cron_time": "* * * * *",
+        "additional_time": [
+            "yyyymmddhhmm"
+        ]
     },
-    "notes" : {
-        "before" : "还有一个小时",
-        "at" : "现在",
-        "after" : "已经一个小时了"
+    "start_setting":{
+        "before_start": [
+            {
+                "date_offset": "yyyymmddhhmm",
+                "note" : ""
+            }
+        ],
+        "at_start": true,
+        "after_start": [
+            {
+                "date_offset": "yyyymmddhhmm",
+                "note" : ""
+            }
+        ]
     },
-    "ended" : false,
-    "enable": true
+    "end_setting":{
+        "before_end": [
+            {
+                "date_offset": "yyyymmddhhmm",
+                "note" : ""
+            }
+        ],
+        "at_end": true
+    },
+    "event_setting": {
+        "before_event": [
+            {
+                "date_offset": "yyyymmddhhmm",
+                "note" : ""
+            }
+        ],
+        "at_event": true,
+        "after_event": [
+            {
+                "date_offset": "yyyymmddhhmm",
+                "note" : ""
+            }
+        ]
+    }
 }
