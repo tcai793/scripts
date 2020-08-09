@@ -6,6 +6,8 @@ class CONFIG:
     MAIN_CONFIG_PATH = ROOT_CONFIG_PATH + 'common.json'
     # Email
     EMAIL_CONFIG_PATH = ROOT_CONFIG_PATH + 'email.json'
+    # Aviation Weather
+    AVIATION_WEATHER_CONFIG_PATH = ROOT_CONFIG_PATH + 'aviation_weather.json'
     # Reminder
 
     # COVID

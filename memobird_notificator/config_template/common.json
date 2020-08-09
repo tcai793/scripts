@@ -1,9 +1,9 @@
 {
     "hostname": "localhost",
-    "modules": [
-        "Email",
-        ""
-    ],
-    "memobird_smart_guid":  "",
-    "memobird_user_id" : ""
+    "modules": {
+        "Email": "* * * * *",
+        "Aviation_Weather": "* * * * *"
+    },
+    "memobird_smart_guid": "",
+    "memobird_user_id": ""
 }

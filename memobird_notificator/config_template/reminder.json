@@ -1,53 +1,22 @@
 {
-    "name": "name",
-    "enable": true,
-    "ended": false,
-    "timezone": "CDT",
-    "start_date": "yyyymmddhhmm",
-    "end_date": "yyyymmddhhmm",
-    "event_date": {
-        "cron_time": "* * * * *",
-        "additional_time": [
-            "yyyymmddhhmm"
-        ]
-    },
-    "start_setting":{
-        "before_start": [
-            {
-                "date_offset": "yyyymmddhhmm",
-                "note" : ""
-            }
-        ],
-        "at_start": true,
-        "after_start": [
-            {
-                "date_offset": "yyyymmddhhmm",
-                "note" : ""
-            }
-        ]
-    },
-    "end_setting":{
-        "before_end": [
-            {
-                "date_offset": "yyyymmddhhmm",
-                "note" : ""
-            }
-        ],
-        "at_end": true
-    },
-    "event_setting": {
-        "before_event": [
-            {
-                "date_offset": "yyyymmddhhmm",
-                "note" : ""
-            }
-        ],
-        "at_event": true,
-        "after_event": [
-            {
-                "date_offset": "yyyymmddhhmm",
-                "note" : ""
-            }
-        ]
-    }
+    "repeated_events": [
+        {
+            "name": "name",
+            "enable": true,
+            "timezone": "CDT",
+            "start_datetime": "yyyymmddhhmm",
+            "end_datetime": "yyyymmddhhmm",
+            "event_crontime": "* * * * *",
+            "note": "Note"
+        }
+    ],
+    "single_time_events": [
+        {
+            "name": "name",
+            "enable": true,
+            "timezone": "CDT",
+            "event_datetime": "yyyymmddhhmm",
+            "note": "Note"
+        }
+    ]
 }

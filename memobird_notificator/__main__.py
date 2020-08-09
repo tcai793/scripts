@@ -1,12 +1,16 @@
 import logging
 from memobird_agent import Document
 import json
+import builtins
+from datetime import datetime
+from timeprocess import *
+
+from paper import Paper
+from config import CONFIG
+from module_list import module_list
 
 from module_exception import ModuleException
 from module_interface import Module_Interface
-from module_email import Module_Email
-from paper import Paper
-from config import CONFIG
 
 
 def parse_config(path_to_config):
@@ -32,6 +36,9 @@ def parse_config(path_to_config):
 
 
 if __name__ == '__main__':
+    # Log current time for use by other modules
+    builtins.utctimestamp = get_utctimestamp()
+
     # Open logging file
     logging.basicConfig(
         filename=CONFIG.LOG_FILE_PATH,
@@ -54,33 +61,42 @@ if __name__ == '__main__':
     paper = Paper()
     logging.info("paper created")
 
-    # Run modules
-    try:
-        module_list = {
-            "Email": Module_Email(paper),
-            # "Reminder" : Module_Interface(),
-            # "COVID" : Module_Interface()
-        }
-    except BaseException as exc:
-        logging.critical(
-            "Error occurred when creating module_list: {0}".format(exc))
-        exit(-1)
-
+    # Run each module if meet cron time requirement and enabled in config
     for mod in module_list:
-        if mod in config['modules']:
-            logging.info("----- Begin {0} Module -----".format(mod))
-            try:
-                module_list[mod].run()
-            except ModuleException as exc:
-                logging.error(
-                    "Error occurred when running module {0}: {1}".format(mod, exc))
-            except BaseException as exc:
-                logging.critical(
-                    "Critical Error occurred when running module {0}: {1}".format(mod, exc))
-            finally:
-                logging.info("------ End {0} Module ------".format(mod))
-        else:
-            logging.info("{0} module is not configured to run".format(mod))
+        # Check if enabled
+        if mod not in config['modules']:
+            logging.info("----- Module {} is disabled -----".format(mod))
+            continue
+
+        # Check if meet cron time requiremnt
+        try:
+            cron = CronTab(config['modules'][mod])
+            if not cron.test(builtins.utctimestamp):
+                logging.info(
+                    '----- Module {} runtime not reched. Next run in {} -----'.format(
+                        mod,
+                        timestamp_to_str(cron.next(default_utc=True))
+                    )
+                )
+                continue
+        except BaseException as exc:
+            logging.warning('crontime set for this module cannot be parsed. "{}": {}'.format(
+                config['modules'][mod], exc))
+
+        logging.info("----- Begin {0} Module -----".format(mod))
+
+        # Module is scheduled to run
+        print("Running module {}".format(mod))
+        # try:
+        #     module_list[mod](paper).run()
+        # except ModuleException as exc:
+        #     logging.error(
+        #         "Error occurred when running module {0}: {1}".format(mod, exc))
+        # except BaseException as exc:
+        #     logging.critical(
+        #         "Critical Error occurred when running module {0}: {1}".format(mod, exc))
+
+        logging.info("------ End {0} Module ------".format(mod))
 
     # Print documents
     # Only print documents that have content
