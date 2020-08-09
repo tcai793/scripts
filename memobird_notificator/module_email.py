@@ -88,10 +88,16 @@ class Module_Email(Module_Interface):
         logging.info("Folder changed")
 
         # Process inbox
-        for item in folder.all().order_by('-datetime_received')[:20]:
+        counter = 0
+        for item in folder.all().order_by('-datetime_received'):
             # if the document is read then don't print it
             if item.is_read:
                 continue
+
+            counter += 1
+
+            if counter > 20:
+                break
 
             # Print the email
             self.add_email(item.sender.name, item.sender.email_address,
