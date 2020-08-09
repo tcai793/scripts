@@ -86,15 +86,14 @@ if __name__ == '__main__':
         logging.info("----- Begin {0} Module -----".format(mod))
 
         # Module is scheduled to run
-        print("Running module {}".format(mod))
-        # try:
-        #     module_list[mod](paper).run()
-        # except ModuleException as exc:
-        #     logging.error(
-        #         "Error occurred when running module {0}: {1}".format(mod, exc))
-        # except BaseException as exc:
-        #     logging.critical(
-        #         "Critical Error occurred when running module {0}: {1}".format(mod, exc))
+        try:
+            module_list[mod](paper).run()
+        except ModuleException as exc:
+            logging.error(
+                "Error occurred when running module {0}: {1}".format(mod, exc))
+        except BaseException as exc:
+            logging.critical(
+                "Critical Error occurred when running module {0}: {1}".format(mod, exc))
 
         logging.info("------ End {0} Module ------".format(mod))
 

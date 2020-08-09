@@ -8,6 +8,7 @@ class CONFIG:
     EMAIL_CONFIG_PATH = ROOT_CONFIG_PATH + 'email.json'
     # Aviation Weather
     AVIATION_WEATHER_CONFIG_PATH = ROOT_CONFIG_PATH + 'aviation_weather.json'
+    # Transmission
+    TRANSMISSION_CONFIG_PATH = ROOT_CONFIG_PATH + 'transmission.json'
+    TRANSMISSION_DB_PATH = ROOT_CONFIG_PATH + 'transmission.db'
     # Reminder
-
-    # COVID
