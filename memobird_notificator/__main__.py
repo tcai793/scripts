@@ -74,7 +74,7 @@ if __name__ == '__main__':
                 logging.info(
                     '----- Module {} runtime not reched. Next run in {} -----'.format(
                         mod,
-                        timestamp_to_str(cron.next(default_utc=True))
+                        timestamp_to_str(cron.next(default_utc=False))
                     )
                 )
                 continue
