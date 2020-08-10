@@ -2,6 +2,7 @@ import logging
 from memobird_agent import Document
 import json
 import builtins
+import socket
 from datetime import datetime
 from croniter import croniter
 
@@ -13,22 +14,22 @@ from module_interface import Module_Interface
 
 
 def parse_config(path_to_config):
-    config_f = open(path_to_config)
-    config = json.load(config_f)
-    config_f.close()
+    config = {}
+    with open(path_to_config) as config_f:
+        config = json.load(config_f)
 
     if not 'hostname' in config:
-        raise Exception("When parsing main config: log_file_path not found!")
+        config['hostname'] = socket.gethostname()
 
     if not 'modules' in config:
-        raise Exception("When parsing main config: modules not found!")
+        raise AttributeError("When parsing main config: modules not found!")
 
     if not 'memobird_smart_guid' in config:
-        raise Exception(
+        raise AttributeError(
             "When parsing main config: memobird_smart_guid not found!")
 
     if not 'memobird_user_id' in config:
-        raise Exception(
+        raise AttributeError(
             "When parsing main config: memobird_user_id not found!")
 
     return config
@@ -57,7 +58,7 @@ if __name__ == '__main__':
         exit(-1)
 
     # Create paper
-    paper = Paper()
+    paper = Paper(config['hostname'])
     logging.info("paper created")
 
     # Run each module if meet cron time requirement and enabled in config

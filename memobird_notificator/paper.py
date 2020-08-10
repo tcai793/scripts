@@ -1,10 +1,17 @@
 import memobird_agent
+from datetime import datetime
 
 
 class Paper(memobird_agent.Document):
-    def __init__(self):
+    def __init__(self, hostname):
         self._empty = True
         super().__init__()
+
+        # Add header
+        timestr = datetime.now().strftime('%Y/%m/%d %H:%M:%S %Z')
+        super().add_text("From: " + hostname, bold=1)
+        super().add_text("Time: " + timestr, bold=1)
+        super().add_text()
 
     def new_module(self, module_name):
         if not self._empty:
