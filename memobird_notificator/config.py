@@ -1,5 +1,5 @@
 class CONFIG:
-    ROOT_CONFIG_PATH = '/etc/memobird_notificator/'
+    ROOT_CONFIG_PATH = './config/'
     # Log File
     LOG_FILE_PATH = ROOT_CONFIG_PATH + 'logfile.log'
     # Main
@@ -12,3 +12,4 @@ class CONFIG:
     TRANSMISSION_CONFIG_PATH = ROOT_CONFIG_PATH + 'transmission.json'
     TRANSMISSION_DB_PATH = ROOT_CONFIG_PATH + 'transmission.db'
     # Reminder
+    REMINDER_CONFIG_PATH = ROOT_CONFIG_PATH + 'reminder.json'
