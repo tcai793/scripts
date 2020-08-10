@@ -43,7 +43,6 @@ class Module_Aviation_Weather(Module_Interface):
             for i, line in enumerate(match):
                 if i is 0:
                     self._paper.add_text("METAR:", bold=1)
-                    self._paper.add_text(builtins.utctimestamp)
                 if i is 1:
                     self._paper.add_text("TAF:", bold=1)
 

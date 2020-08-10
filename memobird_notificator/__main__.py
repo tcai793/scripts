@@ -3,7 +3,7 @@ from memobird_agent import Document
 import json
 import builtins
 from datetime import datetime
-from timeprocess import *
+from croniter import croniter
 
 from paper import Paper
 from config import CONFIG
@@ -36,7 +36,7 @@ def parse_config(path_to_config):
 
 if __name__ == '__main__':
     # Log current time for use by other modules
-    builtins.utctimestamp = get_utctimestamp()
+    builtins.now = datetime.now()
 
     # Open logging file
     logging.basicConfig(
@@ -69,15 +69,16 @@ if __name__ == '__main__':
 
         # Check if meet cron time requiremnt
         try:
-            cron = CronTab(config['modules'][mod])
-            if not cron.test(builtins.utctimestamp):
+            cron_format = config['modules'][mod]
+            if not croniter.match(cron_format, builtins.now):
                 logging.info(
-                    '----- Module {} runtime not reched. Next run in {} -----'.format(
+                    '----- Module {} runtime not reched. Next run at {} -----'.format(
                         mod,
-                        timestamp_to_str(cron.next(default_utc=False))
+                        croniter(cron_format, builtins.now).get_next(datetime)
                     )
                 )
                 continue
+
         except BaseException as exc:
             logging.warning('crontime set for this module cannot be parsed. "{}": {}'.format(
                 config['modules'][mod], exc))
