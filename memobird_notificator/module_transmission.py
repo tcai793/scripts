@@ -32,6 +32,8 @@ class Module_Transmission:
         if self._anything_printed is False:
             self._paper.new_module("Transmission")
             self._anything_printed = True
+        else:
+            self._paper.add_text()
 
     def run(self):
         # Parse config
@@ -91,15 +93,15 @@ class Module_Transmission:
                         done_db["error"][seedhash] is not t.errorString:
                     # Add to paper
                     self._check_paper()
-                    if(empty):
+                    if empty:
                         self._paper.add_text("Error", bold=1)
                         empty = False
+                    else:
+                        # Empty line between items
+                        self._paper.add_text()
 
                     self._paper.add_text(
                         "{}:\n{}".format(t.name, t.errorString))
-
-        if not empty:
-            self._paper.add_text()
 
         # Check completed
         empty = True
@@ -111,14 +113,14 @@ class Module_Transmission:
                 if seedhash not in old_db["completed"]:
                     # Add to paper
                     self._check_paper()
-                    if(empty):
+                    if empty:
                         self._paper.add_text("Download Finished", bold=1)
                         empty = False
+                    else:
+                        # Empty line between items
+                        self._paper.add_text()
 
                     self._paper.add_text(t.name)
-
-        if not empty:
-            self._paper.add_text()
 
         db_f = open(CONFIG.TRANSMISSION_DB_PATH, 'w')
         json.dump(new_db, db_f)
