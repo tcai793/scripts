@@ -11,5 +11,5 @@ class CONFIG:
     # Transmission
     TRANSMISSION_CONFIG_PATH = ROOT_CONFIG_PATH + 'transmission.json'
     TRANSMISSION_DB_PATH = ROOT_CONFIG_PATH + 'transmission.db'
-    # Reminder
-    REMINDER_CONFIG_PATH = ROOT_CONFIG_PATH + 'reminder.json'
+    # Remainder
+    REMAINDER_CONFIG_PATH = ROOT_CONFIG_PATH + 'remainder.json'

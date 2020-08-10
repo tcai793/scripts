@@ -15,13 +15,13 @@ class Module_Remainder(Module_Interface):
         self._empty = True
 
     def _parse_config(self):
-        config_f = open(CONFIG.REMINDER_CONFIG_PATH)
+        config_f = open(CONFIG.REMAINDER_CONFIG_PATH)
         self._config = json.load(config_f)
         config_f.close()
 
     def _add_content(self, text):
         if self._empty:
-            self._paper.new_module("Reminder")
+            self._paper.new_module("Remainder")
             self._empty = False
         else:
             # Add empty line between lines
