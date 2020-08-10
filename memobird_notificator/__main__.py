@@ -9,7 +9,6 @@ from paper import Paper
 from config import CONFIG
 from module_list import module_list
 
-from module_exception import ModuleException
 from module_interface import Module_Interface
 
 
@@ -88,7 +87,7 @@ if __name__ == '__main__':
         # Module is scheduled to run
         try:
             module_list[mod](paper).run()
-        except ModuleException as exc:
+        except AttributeError as exc:
             logging.error(
                 "Error occurred when running module {0}: {1}".format(mod, exc))
         except BaseException as exc:

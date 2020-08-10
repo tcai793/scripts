@@ -1,5 +1,4 @@
 from config import CONFIG
-from module_exception import ModuleException
 from module_interface import Module_Interface
 from paper import Paper
 
@@ -21,13 +20,13 @@ class Module_Transmission:
         config_f.close()
 
         if 'host' not in self._config:
-            raise ModuleException("Key host not found in config file")
+            raise AttributeError("Key host not found in config file")
         if 'port' not in self._config:
-            raise ModuleException("Key port not found in config file")
+            raise AttributeError("Key port not found in config file")
         if 'username' not in self._config:
-            raise ModuleException("Key username not found in config file")
+            raise AttributeError("Key username not found in config file")
         if 'password' not in self._config:
-            raise ModuleException("Key password not found in config file")
+            raise AttributeError("Key password not found in config file")
 
     def _check_paper(self):
         if self._anything_printed is False:

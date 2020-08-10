@@ -4,7 +4,6 @@ from exchangelib import Credentials, Account, EWSTimeZone
 import logging
 
 from config import CONFIG
-from module_exception import ModuleException
 from module_interface import Module_Interface
 from paper import Paper
 
@@ -20,19 +19,19 @@ class Module_Email(Module_Interface):
         config_f.close()
 
         if 'email' not in self._config:
-            raise ModuleException("Key email not found in config file")
+            raise AttributeError("Key email not found in config file")
 
         if 'password' not in self._config:
-            raise ModuleException("Key password not found in config file")
+            raise AttributeError("Key password not found in config file")
 
         if 'folders' not in self._config:
-            raise ModuleException("Key folders not found in config file")
+            raise AttributeError("Key folders not found in config file")
 
         if not isinstance(self._config['folders'], list):
-            raise ModuleException("Key folders is not a list")
+            raise AttributeError("Key folders is not a list")
 
         if not isinstance(self._config['folders'][0], str):
-            raise ModuleException("Key folders is not a list of string")
+            raise AttributeError("Key folders is not a list of string")
 
     def add_email(self, sender_name, sender_email, datetime_received, subject, text_body, limit=100):
 

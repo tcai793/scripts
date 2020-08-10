@@ -1,5 +1,4 @@
 from config import CONFIG
-from module_exception import ModuleException
 from module_interface import Module_Interface
 from paper import Paper
 
@@ -21,7 +20,7 @@ class Module_Aviation_Weather(Module_Interface):
         config_f.close()
 
         if 'location' not in self._config:
-            raise ModuleException("Key location not found in config file")
+            raise AttributeError("Key location not found in config file")
 
     def run(self):
         # Parse config
