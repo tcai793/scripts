@@ -1,0 +1,7 @@
+config.json
+history.log
+test.py
+*.session
+__pycache__/
+download/
+files/
