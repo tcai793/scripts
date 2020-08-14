@@ -78,8 +78,7 @@ def create_messageinfo(message):
     messageinfo['date'] = message.date.strftime("%Y-%m-%d %H:%M:%S")
     messageinfo['out'] = message.out
     messageinfo['raw_text'] = message.raw_text
-    messageinfo['action'] = type(
-        message.action).__name__ if message.action else None
+    messageinfo['action'] = type(message.action).__name__ if message.action else None
 
     return messageinfo
 

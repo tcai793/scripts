@@ -57,6 +57,19 @@ def save_one_message(message, chat_path, chatinfo):
         save_messageinfo(messageinfo, message_path)
 
 
+def save_range_messages(client, chat_id, chat_path, chatinfo, count, total, min_id=0, max_id=0):
+    for message in client.iter_messages(chat_id, reverse=True, min_id=min_id, max_id=max_id):
+        count += 1
+        print('{}/{}'.format(count, total), end='\r')
+
+        save_one_message(message, chat_path, chatinfo)
+
+        # Save chat metadata
+        save_json(chatinfo, os.path.join(chat_path, 'chatinfo.json'))
+
+    return count
+
+
 def save_all_messages(client, chat_id, chat_path):
     # Variable used to display progress
     total = client.get_messages(chat_id).total
@@ -76,33 +89,14 @@ def save_all_messages(client, chat_id, chat_path):
         chatinfo = create_chatinfo(client, chat_id)
 
     # Process all messages
-    if min_processed_id is 0:  # Nothing downloaded
-        for message in client.iter_messages(chat_id, reverse=True):
-            count += 1
-            print('{}/{}'.format(count, total), end='\r')
-
-            save_one_message(message, chat_path, chatinfo)
-
-            # Save chat metadata
-            save_json(chatinfo, os.path.join(chat_path, 'chatinfo.json'))
-    else:  # Resume previous download
-        for message in client.iter_messages(chat_id, reverse=True, max_id=min_processed_id):
-            count += 1
-            print('{}/{}'.format(count, total), end='\r')
-
-            save_one_message(message, chat_path, chatinfo)
-
-            # Save chat metadata
-            save_json(chatinfo, os.path.join(chat_path, 'chatinfo.json'))
-
-        for message in client.iter_messages(chat_id, reverse=True, min_id=max_processed_id):
-            count += 1
-            print('{}/{}'.format(count, total), end='\r')
-
-            save_one_message(message, chat_path, chatinfo)
-
-            # Save chat metadata
-            save_json(chatinfo, os.path.join(chat_path, 'chatinfo.json'))
+    if min_processed_id is 0:
+        # Nothing downloaded yet, start new download
+        count = save_range_messages(
+            client, chat_id, chat_path, chatinfo, count, total)
+    else:
+        # Resume previous download
+        count = save_range_messages(client, chat_id, chat_path, chatinfo, count, total, max_id=min_processed_id)
+        count = save_range_messages(client, chat_id, chat_path, chatinfo, count, total, min_id=max_processed_id)
 
 
 def same_grouped_id_has_same_text(client, chat_id):
