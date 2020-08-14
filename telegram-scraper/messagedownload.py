@@ -6,6 +6,21 @@ import errno
 from metadata import *
 
 
+def download_all_media_file(message, message_path):
+    create_dir_if_nonexist_from_dirname(message_path)
+    message.download_media(file=message_path)
+
+    # If page is a webpage, download all photos and documents cached in page
+    try:
+        for photo in message.web_preview.cached_page.photos:
+            message.client.download_media(photo, file=message_path)
+
+        for doc in message.web_preview.cached_page.documents:
+            message.client.download_media(doc, file=message_path)
+    except Exception as exc:
+        pass
+
+
 def save_one_message(message, chat_path, chatinfo):
     # Process chat metadata
     if chatinfo['min_processed_id'] > message.id:
@@ -23,8 +38,7 @@ def save_one_message(message, chat_path, chatinfo):
             message_path = os.path.join(chat_path, str(folder_id))
 
             # Download media file
-            create_dir_if_nonexist_from_dirname(message_path)
-            message.download_media(file=message_path)
+            download_all_media_file(message, message_path)
 
             # Append new id to messageinfo
             messageinfo = load_messageinfo(message_path)
@@ -37,8 +51,7 @@ def save_one_message(message, chat_path, chatinfo):
             chatinfo['album_mapping'][grouped_id] = folder_id
 
             # Download media file
-            create_dir_if_nonexist_from_dirname(message_path)
-            message.download_media(file=message_path)
+            download_all_media_file(message, message_path)
 
             # Write messageinfo
             messageinfo = create_messageinfo(message)
@@ -50,8 +63,7 @@ def save_one_message(message, chat_path, chatinfo):
         messageinfo = create_messageinfo(message)
 
         # Download media
-        create_dir_if_nonexist_from_dirname(message_path)
-        message.download_media(file=message_path)
+        download_all_media_file(message, message_path)
 
         # Write messageinfo
         save_messageinfo(messageinfo, message_path)
