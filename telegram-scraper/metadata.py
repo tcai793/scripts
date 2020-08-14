@@ -85,7 +85,6 @@ def create_messageinfo(message):
 
 def create_chatinfo(client, chat_id):
     chatinfo = {}
-    chatinfo['min_processed_id'] = 0
     chatinfo['max_processed_id'] = 0
     chatinfo['id'] = chat_id
     chatinfo['chatname'] = get_chat_name(client, chat_id)

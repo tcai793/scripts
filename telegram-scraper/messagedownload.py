@@ -23,8 +23,6 @@ def download_all_media_file(message, message_path):
 
 def save_one_message(message, chat_path, chatinfo):
     # Process chat metadata
-    if chatinfo['min_processed_id'] > message.id:
-        chatinfo['min_processed_id'] = message.id
     if chatinfo['max_processed_id'] < message.id:
         chatinfo['max_processed_id'] = message.id
 
@@ -91,8 +89,6 @@ def save_all_messages(client, chat_id, chat_path):
     # Load dictionary
     chatinfo = load_chatinfo(chat_path)
 
-    min_processed_id = dictionary_get_or_default(
-        chatinfo, 'min_processed_id', 0)
     max_processed_id = dictionary_get_or_default(
         chatinfo, 'max_processed_id', 0)
 
@@ -100,28 +96,11 @@ def save_all_messages(client, chat_id, chat_path):
     if chatinfo == {}:
         chatinfo = create_chatinfo(client, chat_id)
 
-    # Process all messages
-    if min_processed_id is 0:
-        # Nothing downloaded yet, start new download
-        count = save_range_messages(
-            client, chat_id, chat_path, chatinfo, count, total)
-    else:
-        # Resume previous download
-        count = save_range_messages(client, chat_id, chat_path, chatinfo, count, total, max_id=min_processed_id)
-        count = save_range_messages(client, chat_id, chat_path, chatinfo, count, total, min_id=max_processed_id)
+    # Download all messages
+    count = save_range_messages(client, chat_id, chat_path, chatinfo, count, total, min_id=max_processed_id)
 
 
-def messagedownload():
-    # Parse config
-    config = {}
-    with open('config.json') as config_fp:
-        config = json.load(config_fp)
-
-    api_id = config['api_id']
-    api_hash = config['api_hash']
-    chat_name = config['chat_name']
-    root_folder = config['root_folder']
-    session_name = config['session_name']
+def messagedownload(api_id, api_hash, chat_names, root_folder, session_name):
 
     # Setup client
 
@@ -129,10 +108,13 @@ def messagedownload():
 
     client.start()
 
-    # Search chat
-    chat_id = get_chat_id(client, chat_name)
+    for counter, chat_name in enumerate(chat_names):
+        print('Downloading chat: {} ({}/{})'.format(chat_name, counter+1, len(chat_names)))
 
-    chat_path = os.path.join(root_folder, chat_name + '-' + str(chat_id))
+        # Search chat
+        chat_id = get_chat_id(client, chat_name)
 
-    # Step 1: save all messages
-    save_all_messages(client, chat_id, chat_path)
+        chat_path = os.path.join(root_folder, chat_name + '-' + str(chat_id))
+
+        # Save all messages
+        save_all_messages(client, chat_id, chat_path)
