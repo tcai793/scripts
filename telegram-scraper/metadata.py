@@ -46,6 +46,10 @@ def save_json(obj, filename):
         json.dump(obj, fp, ensure_ascii=False)
 
 
+def save_hashtags(hashtags, path):
+    save_json(hashtags, os.path.join(path, 'hashtags.json'))
+
+
 def save_messageinfo(messageinfo, path):
     save_json(messageinfo, os.path.join(path, 'messageinfo.json'))
 

@@ -1,5 +1,6 @@
 import json
 from messagedownload import messagedownload
+from extractfield import extract_hash_tag
 
 if __name__ == '__main__':
     # Parse config
@@ -14,4 +15,5 @@ if __name__ == '__main__':
     session_name = config['session_name']
 
     # Step 1 download message
-    messagedownload(api_id, api_hash, chat_names, root_folder, session_name)
+    #messagedownload(api_id, api_hash, chat_names, root_folder, session_name)
+    extract_hash_tag(chat_names, root_folder)
