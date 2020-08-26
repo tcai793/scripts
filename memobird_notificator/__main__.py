@@ -5,6 +5,8 @@ import builtins
 import socket
 from datetime import datetime
 from croniter import croniter
+import traceback
+import sys
 
 from paper import Paper
 from config import CONFIG
@@ -91,10 +93,10 @@ if __name__ == '__main__':
             module_list[mod](paper).run()
         except AttributeError as exc:
             logging.error(
-                "Error occurred when running module {0}: {1}".format(mod, exc))
+                "Error occurred when running module {0}({1}): {2}".format(mod, exc, traceback.extract_tb(sys.exc_info()[2])))
         except BaseException as exc:
             logging.critical(
-                "Critical Error occurred when running module {0}: {1}".format(mod, exc))
+                "Critical Error occurred when running module {0}({1}): {2}".format(mod, exc, traceback.extract_tb(sys.exc_info()[2])))
 
         logging.info("------ End {0} Module ------".format(mod))
 

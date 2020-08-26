@@ -48,16 +48,16 @@ class Module_Transmission:
         old_db = {
             "completed": [
             ],
-            "error": [
-            ],
+            "error": {
+            },
             "accessble": True
         }
 
         new_db = {
             "completed": [
             ],
-            "error": [
-            ],
+            "error": {
+            },
             "accessble": True
         }
 
@@ -89,8 +89,8 @@ class Module_Transmission:
 
             if t.error is not 0:
                 new_db["error"][seedhash] = [t.errorString]
-                if seedhash not in done_db["error"] and \
-                        done_db["error"][seedhash] is not t.errorString:
+                if seedhash not in old_db["error"] or \
+                        old_db["error"][seedhash] is not t.errorString:
                     # Add to paper
                     self._check_paper()
                     if empty:
