@@ -88,9 +88,10 @@ class Module_Transmission:
             seedhash = t.hashString
 
             if t.error is not 0:
-                new_db["error"][seedhash] = [t.errorString]
-                if seedhash not in old_db["error"] or \
-                        old_db["error"][seedhash] is not t.errorString:
+                new_db["error"][seedhash] = t.errorString
+                if seedhash not in old_db["error"].keys() or \
+                        not old_db["error"][seedhash] == t.errorString:
+                    continue
                     # Add to paper
                     self._check_paper()
                     if empty:
